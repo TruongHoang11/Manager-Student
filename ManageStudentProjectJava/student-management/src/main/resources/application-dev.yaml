@@ -1,0 +1,44 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  devtools:
+    add-properties: true
+#  spring.devtools.add-properties: true (giup reload code tu dong khi luu), tu restart khi thay doi code
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ManagerStudent}
+#    day la url ket noi den Postgresql. Cu phap: ${VARIABLE:defaultValue}
+#          lay gia tri tu bien moi truong neu co
+#          neu ko co -> dung gia tri mac dinh
+#          o duoi cung the
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:hoangtodz1}
+
+
+    hikari: # Connection poll
+      max-lifetime: 300000
+      idle-timeout: 60000
+      validation-timeout: 5000
+      minimum-idle: 5
+      maximum-pool-size: 20
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+openapi:
+  service:
+    apiDocs: student-manager
+    serverUrl: http://localhost:${server.port}
+    title: Manager Student
+    description: API Manager Student
+    version: 1.0.0
